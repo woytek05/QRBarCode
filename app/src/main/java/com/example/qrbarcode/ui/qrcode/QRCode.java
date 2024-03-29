@@ -43,14 +43,12 @@ public class QRCode extends Fragment {
         final ImageView imageView = binding.imageView;
 
         viewModel.getQRCodeBitmap().observe(getViewLifecycleOwner(), bitmap -> {
-            if (bitmap != null) {
-                imageView.setImageBitmap(bitmap);
-            }
+            if (bitmap != null) imageView.setImageBitmap(bitmap);
         });
 
         buttonGenerateCode.setOnClickListener(v -> viewModel.generateQRCode(editText.getText().toString(), 500, 500));
 
-        return inflater.inflate(R.layout.fragment_q_r_code, container, false);
+        return root;
     }
 
     @Override

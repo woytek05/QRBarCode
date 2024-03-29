@@ -17,17 +17,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.qrbarcode.QRCodeGenerator;
 import com.example.qrbarcode.databinding.FragmentHomeBinding;
+import com.example.qrbarcode.databinding.FragmentQRCodeBinding;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        View root = binding.getRoot();
-        return root;
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
