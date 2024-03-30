@@ -1,4 +1,4 @@
-package com.example.qrbarcode.ui.qrcode;
+package com.example.qrbarcode.ui.barcode;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -16,46 +16,44 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.qrbarcode.R;
-import com.example.qrbarcode.databinding.FragmentHomeBinding;
+import com.example.qrbarcode.databinding.FragmentBarCodeBinding;
 import com.example.qrbarcode.databinding.FragmentQRCodeBinding;
-import com.example.qrbarcode.ui.home.HomeViewModel;
+import com.example.qrbarcode.ui.qrcode.QRCodeViewModel;
 
-public class QRCode extends Fragment {
+public class BarCodeFragment extends Fragment {
 
-    private QRCodeViewModel viewModel;
-    private FragmentQRCodeBinding binding;
+    private BarCodeViewModel viewModel;
+    private FragmentBarCodeBinding binding;
 
-    public static QRCode newInstance() {
-        return new QRCode();
+    public static BarCodeFragment newInstance() {
+        return new BarCodeFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        viewModel = new ViewModelProvider(this).get(QRCodeViewModel.class);
+        viewModel = new ViewModelProvider(this).get(BarCodeViewModel.class);
 
-        binding = FragmentQRCodeBinding.inflate(inflater, container, false);
+        binding = FragmentBarCodeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final EditText editText = binding.editText;
         final Button buttonGenerateCode = binding.buttonGenerateCode;
         final ImageView imageView = binding.imageView;
 
-        viewModel.getQRCodeBitmap().observe(getViewLifecycleOwner(), bitmap -> {
+        viewModel.getBarCodeBitmap().observe(getViewLifecycleOwner(), bitmap -> {
             if (bitmap != null) imageView.setImageBitmap(bitmap);
         });
 
-        buttonGenerateCode.setOnClickListener(v -> viewModel.generateQRCode(editText.getText().toString(), 500, 500));
+        buttonGenerateCode.setOnClickListener(v -> viewModel.generateBarCode(editText.getText().toString(), 500, 500));
 
         return root;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(QRCodeViewModel.class);
-        // TODO: Use the ViewModel
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
-
 }
