@@ -1,16 +1,17 @@
 package com.example.qrbarcode.ui.home;
 
-import android.graphics.Bitmap;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.qrbarcode.QRCodeGenerator;
-
 public class HomeViewModel extends ViewModel {
-    public HomeViewModel() {
+    private final MutableLiveData<String> scannedResult = new MutableLiveData<>();
 
+    public void setScannedResult(String result) {
+        scannedResult.setValue(result);
     }
 
+    public LiveData<String> getScannedResult() {
+        return scannedResult;
+    }
 }
